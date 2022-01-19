@@ -10,16 +10,16 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class Main extends JavaPlugin implements Listener {
 
-    @Override
-    public void onEnable() {
-        getServer().getPluginManager().registerEvents(this, this);
-    }
+  @Override
+  public void onEnable() {
+    getServer().getPluginManager().registerEvents(this, this);
+  }
 
-    @EventHandler(priority = EventPriority.LOWEST)
-    public void onEntitySpawn(EntityAddToWorldEvent e) {
-        if (e.getEntityType().equals(EntityType.ARMOR_STAND)) {
-            ArmorStand as = (ArmorStand) e.getEntity();
-            as.setCanTick(as.hasBasePlate());
-        }
+  @EventHandler(priority = EventPriority.LOWEST)
+  public void onEntitySpawn(final EntityAddToWorldEvent event) {
+    if (event.getEntityType() == EntityType.ARMOR_STAND
+        && event.getEntity() instanceof ArmorStand armorStand) {
+      armorStand.setCanTick(armorStand.hasBasePlate());
     }
+  }
 }
